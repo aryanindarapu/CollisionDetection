@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.CollisionDetection;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -19,6 +20,9 @@ import edu.wpi.first.wpilibj.XboxController;
  */
 public class Robot extends TimedRobot {
   private XboxController controller = new XboxController(RobotMap.Controllers.DRIVER_PORT);
+
+  public static CollisionDetection collisionDetection = CollisionDetection.getInstance();
+  public static Drivetrain drivetrain = Drivetrain.getInstance();
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -42,14 +46,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-
-   if(controller.getAButton()) {
-     
-    } 
-
-    if (controller.getBButton()) {
-      
-    }
+    OI.update();
+    collisionDetection.detectCollision();
   }
   
   @Override

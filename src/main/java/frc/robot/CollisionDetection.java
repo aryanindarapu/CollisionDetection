@@ -1,8 +1,9 @@
 package frc.robot;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.Timer;
+//import edu.wpi.first.wpilibj.Timer;
 import frc.robot.RobotMap;
+import frc.robot.Drivetrain;
 
 
 /** 
@@ -11,6 +12,7 @@ import frc.robot.RobotMap;
  */
 public class CollisionDetection {
     AHRS ahrs;
+    Drivetrain drivetrain;
 
     double prevlinearAccelX;
     double prevlinearAccelY;
@@ -21,6 +23,8 @@ public class CollisionDetection {
     private static CollisionDetection instance;
 
     private CollisionDetection() {
+        drivetrain = Drivetrain.getInstance();
+
         try {
             ahrs = new AHRS(RobotMap.CollisionDetection.NAVX);
         } catch (RuntimeException e) {
@@ -59,7 +63,13 @@ public class CollisionDetection {
         return collisionDetected;
     }
 
-    public void test(boolean testst) {
-        System.out.println(testst);
+    public void stopMotors(boolean collision) {
+        if (collision) {
+            drivetrain.setSpeed(0, 0);
+        }
+    }
+
+    private void test(boolean testing) {
+        System.out.println(testing);
     }
 }
