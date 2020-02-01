@@ -18,8 +18,7 @@ public class OI {
     }
 
     public static void update() {
-        driver.bA.whileHeld(() -> Robot.drivetrain.setLeftSpeed(0.2));
-        driver.bB.whileHeld(() -> Robot.drivetrain.setRightSpeed(0.2));
+        //Robot.drivetrain.arcadeDrive(0.5);
 
         //Robot.turret.setSpeed(driver.getLX());
         updateSD();

@@ -10,22 +10,15 @@ import frc.robot.RobotMap;
  * @author dri
  */
 public class Drivetrain {
-    private Spark l_primary, l_secondary, r_primary, r_secondary; 
+    public Spark l_primary, l_secondary, r_primary, r_secondary; 
     private static Drivetrain instance;
-    private SpeedControllerGroup leftSpeedControl;
-    private SpeedControllerGroup rightSpeedControl; 
 
     private Drivetrain() {
-        l_primary = new Spark(RobotMap.Drivetrain.LEFT_PRIMARY);
-        r_primary = new Spark(RobotMap.Drivetrain.RIGHT_PRIMARY);
-        l_secondary = new Spark(RobotMap.Drivetrain.LEFT_SECONDARY);
-        r_secondary = new Spark(RobotMap.Drivetrain.RIGHT_SECONDARY);
-
-        leftSpeedControl = new SpeedControllerGroup(l_primary,l_secondary);
-        rightSpeedControl = new SpeedControllerGroup(r_primary, r_secondary);
-
-        leftSpeedControl.setInverted(RobotMap.Drivetrain.LEFT_IS_INVERTED);
-        rightSpeedControl.setInverted(RobotMap.Drivetrain.RIGHT_IS_INVERTED);
+        try {
+            
+        } catch (Exception e) {
+            System.out.println("TESTING TESTING TESTING");
+        }
     }
 
     /**
@@ -44,7 +37,10 @@ public class Drivetrain {
      * @param speed tbe speed to set from -1 to 1
      */
     public void setLeftSpeed(double speed){
-        leftSpeedControl.set(speed);
+        
+            l_primary.set(speed);
+            l_secondary.set(speed);
+        
     }
 
     /**
@@ -52,7 +48,20 @@ public class Drivetrain {
      * @param speed the speed to set to from -1 to 1
      */
     public void setRightSpeed(double speed){
-        rightSpeedControl.set(speed);
+       
+            r_primary.set(speed);
+            r_secondary.set(speed);
+        
+    }
+
+    /**
+     * Sets the speed of both the control groups
+     * @param leftSpeed speed of the left side of the drivetrain from -1 to 1
+     * @param rightSpeed speed of the right side of the drivetrain from -1 to 1
+     */
+    public void setSpeed(double leftSpeed, double rightSpeed) {
+        setRightSpeed(rightSpeed);
+        setLeftSpeed(leftSpeed);
     }
 
     /**
@@ -64,16 +73,8 @@ public class Drivetrain {
         double x = OI.driver.getRX();
         y = -1 * y * speed;
         x = 1 * x * speed;
-        setSpeed(x+y, x-y);
-    }
-
-    /**
-     * Sets the speed of both the control groups
-     * @param leftSpeed speed of the left side of the drivetrain from -1 to 1
-     * @param rightSpeed speed of the right side of the drivetrain from -1 to 1
-     */
-    public void setSpeed(double leftSpeed, double rightSpeed) {
-        setRightSpeed(rightSpeed);
-        setLeftSpeed(leftSpeed);
+        System.out.println(y + " " + x);
+        System.out.println((x+y) + " " + (x-y));
+        setSpeed((x+y), (x-y));
     }
 }

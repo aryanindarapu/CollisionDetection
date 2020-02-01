@@ -19,7 +19,7 @@ public class CollisionDetection {
     double currentlinearAccelX;
     double currentlinearAccelY;
     
-    final static double COLLISION_THRESHOLD = 0.5d;
+    final static double COLLISION_THRESHOLD = 0.2d;
     private static CollisionDetection instance;
 
     private CollisionDetection() {
@@ -58,18 +58,13 @@ public class CollisionDetection {
               collisionDetected = true;
         }
 
-        test(collisionDetected);
+        test(collisionDetected, currentJerkX, currentJerkY);
 
         return collisionDetected;
     }
 
-    public void stopMotors(boolean collision) {
-        if (collision) {
-            drivetrain.setSpeed(0, 0);
-        }
-    }
-
-    private void test(boolean testing) {
+    private void test(boolean testing, double jerkx, double jerky) {
         System.out.println(testing);
+        System.out.println(jerkx + " " + jerky);
     }
 }
